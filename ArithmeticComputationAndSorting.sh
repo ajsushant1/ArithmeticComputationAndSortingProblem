@@ -10,3 +10,4 @@ read -p "Enter the third number :" c
 # ARITHMETIC COMPUTATIONS
 firstOperation=$((a+b*c))
 secondOperation=$((a*b+c))
+thirdOperartion=`echo "scale=2; $c+$a/$b" | bc`
