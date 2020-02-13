@@ -11,3 +11,4 @@ read -p "Enter the third number :" c
 firstOperation=$((a+b*c))
 secondOperation=$((a*b+c))
 thirdOperartion=`echo "scale=2; $c+$a/$b" | bc`
+forthOperation=`echo "$a%$b+$c" | bc`
