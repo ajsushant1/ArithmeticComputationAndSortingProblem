@@ -49,20 +49,20 @@ echo ${tempArray[@]}
 
 # FUNCTON TO SORT RESULT IN ASCENDING ORDER
 function ascendingSort(){
-   local tempArray=("$@")
-   local temp=0
-   for (( i=0; i<${#tempArray[@]}; i++ ))
-   do
-      for (( j=$((i+1)); j<${#tempArray[@]}; j++ ))
-      do
-         if (( $(echo "${tempArray[i]} > ${tempArray[j]}" | bc -l) ))
-         then
-            temp=${tempArray[i]}
-            tempArray[i]=${tempArray[j]}
-            tempArray[j]=$temp
-         fi
-      done
-   done
+	local tempArray=("$@")
+	local temp=0
+	for (( i=0; i<${#tempArray[@]}; i++ ))
+	do
+		for (( j=$((i+1)); j<${#tempArray[@]}; j++ ))
+		do
+			if (( $(echo "${tempArray[i]} > ${tempArray[j]}" | bc -l) ))
+			then
+				temp=${tempArray[i]}
+				tempArray[i]=${tempArray[j]}
+				tempArray[j]=$temp
+			fi
+		done
+	done
 echo ${tempArray[@]}
 }
 
