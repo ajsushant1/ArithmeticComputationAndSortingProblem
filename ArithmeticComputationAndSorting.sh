@@ -27,3 +27,28 @@ for (( index=1; index<=dictionaryLength; index++ ))
 do
 	resultArray[index]=${resultDictionary[operation$((index))]}
 done
+
+# FUNCTON TO SORT RESULT IN DESCENDING ORDER
+function descendingSort(){
+	local tempArray=("$@")
+	local temp=0
+	for (( i=0; i<${#tempArray[@]}; i++ ))
+	do
+		for (( j=$((i+1)); j<${#tempArray[@]}; j++ ))
+		do
+			if (( $(echo "${tempArray[i]} < ${tempArray[j]}" | bc -l) ))
+			then
+				temp=${tempArray[i]}
+				tempArray[i]=${tempArray[j]}
+				tempArray[j]=$temp
+			fi
+		done
+	done
+echo ${tempArray[@]}
+}
+
+# FUNCTION CALL TO GET RESULT IN DESCENDING ORDER
+sortedArray="$( descendingSort ${resultArray[@]} )"
+
+# DISPLAYING RESULT OF ARITHMETIC OPERATION IN DESCENDING ORDER 
+echo "Result of Arithmetic Operation In Descending Order : "${sortedArray[@]}
