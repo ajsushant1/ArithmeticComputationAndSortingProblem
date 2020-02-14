@@ -14,8 +14,8 @@ read -p "Enter the Second number :" b
 read -p "Enter the third number :" c
 
 # COMPUTING ARITHMETIC OPERATION AND STORING THE REASULT IN DICTIONARY
-resultDictionary[operation1]=$((a+b*c))
-resultDictionary[operation2]=$((a*b+c))
+resultDictionary[operation1]=`echo "sacle=2; $a+$b*$c" | bc`
+resultDictionary[operation2]=`echo "scale=2; $a*$b+$c" | bc`
 resultDictionary[operation3]=`echo "scale=2; $c+$a/$b" | bc`
 resultDictionary[operation4]=`echo "$a%$b+$c" | bc`
 
@@ -47,8 +47,34 @@ function descendingSort(){
 echo ${tempArray[@]}
 }
 
+# FUNCTON TO SORT RESULT IN ASCENDING ORDER
+function ascendingSort(){
+   local tempArray=("$@")
+   local temp=0
+   for (( i=0; i<${#tempArray[@]}; i++ ))
+   do
+      for (( j=$((i+1)); j<${#tempArray[@]}; j++ ))
+      do
+         if (( $(echo "${tempArray[i]} > ${tempArray[j]}" | bc -l) ))
+         then
+            temp=${tempArray[i]}
+            tempArray[i]=${tempArray[j]}
+            tempArray[j]=$temp
+         fi
+      done
+   done
+echo ${tempArray[@]}
+}
+
 # FUNCTION CALL TO GET RESULT IN DESCENDING ORDER
-sortedArray="$( descendingSort ${resultArray[@]} )"
+descendingSortedArray="$( descendingSort ${resultArray[@]} )"
+
+# FUNCTION CALL TO GET RESULT IN ASCENDING ORDER
+ascendingSortedArray="$( ascendingSort ${resultArray[@]} )"
 
 # DISPLAYING RESULT OF ARITHMETIC OPERATION IN DESCENDING ORDER 
-echo "Result of Arithmetic Operation In Descending Order : "${sortedArray[@]}
+echo "Result of Arithmetic Operation In Descending Order : "${descendingSortedArray[@]}
+
+# DISPLAYING RESULT OF ARITHMETIC OPERATION IN ASCENDING ORDER
+echo "Result of Arithmetic Operation In Ascending Order : "${ascendingSortedArray[@]}
+
